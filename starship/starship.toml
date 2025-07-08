@@ -13,5 +13,3 @@ style_root = 'black bold'
 format = '[](#f2cdcd)[$user](fg:#181825 bg:#f2cdcd )[](#f2cdcd) '
 disabled = false
 show_always = true
-
-

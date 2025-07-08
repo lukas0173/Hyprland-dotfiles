@@ -81,7 +81,7 @@
     "format-icons": ["󰃞", "󰃟", "󰃠"]
   },
   "network": {
-    "interface": "wlan0",
+    "interface": "wlp5s0",
     "format-wifi": "  {essid}",
     "on-click": "nm-applet",
     "format-ethernet": "󰈀 wired",
@@ -94,14 +94,14 @@
 
   "pulseaudio": {
     "format": "{icon} <b>{volume}</b>",
-    "format-bluetooth": " ",
-    "format-bluetooth-muted": " ",
+    "format-bluetooth": "󰗾",
+    "format-bluetooth-muted": "󰗿",
     "tooltip": false,
-    "format-muted": "",
+    "format-muted": "󰝟",
     "format-icons": {
       "default": ["", "", ""]
     },
-    "on-click": "pavucontrol"
+    "on-click": "pwvucontrol"
   },
   "battery": {
     "bat": "BAT1",
