@@ -52,3 +52,6 @@ default-timeout=5000
 border-color=#F38BA8
 text-color=#F38BA8
 default-timeout=0
+
+[group=screenshot]
+max-visible=1

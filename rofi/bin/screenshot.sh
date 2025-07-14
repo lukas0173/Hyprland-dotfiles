@@ -12,9 +12,6 @@ theme="$HOME/.config/rofi/themes/screenshot.rasi"
 prompt='Screenshot'
 mesg="DIR: `xdg-user-dir PICTURES`/Screenshots"
 
-# Mako notification group
-readonly notification_group="screenshot"
-
 # Options
 layout=`cat ${theme} | grep 'USE_ICON' | cut -d'=' -f2`
 if [[ "$layout" == 'NO' ]]; then
@@ -57,12 +54,13 @@ fi
 
 # notify and view screenshot
 notify_view() {
-	notify-send -c "$notification_category" -u low "Screenshot" "Copied to clipboard."
-	viewnior "${dir}/${file}"
+	notify_cmd_shot='dunstify -u low --replace=699'
+	${notify_cmd_shot} "Copied to clipboard."
+	viewnior ${dir}/"$file"
 	if [[ -e "$dir/$file" ]]; then
-		notify-send -c "$notification_category" -u low "Screenshot" "Screenshot Saved."
+		${notify_cmd_shot} "Screenshot Saved."
 	else
-		notify-send -c "$notification_category" -u low "Screenshot" "Screenshot Deleted."
+		${notify_cmd_shot} "Screenshot Deleted."
 	fi
 }
 
@@ -74,7 +72,7 @@ copy_shot () {
 # countdown
 countdown () {
 	for sec in `seq $1 -1 1`; do
-    notify-send -c "$notification_category" -t 1000 "Screenshot" "Taking shot in : $sec"
+		dunstify -t 1000 --replace=699 "Taking shot in : $sec"
 		sleep 1
 	done
 }
@@ -98,17 +96,7 @@ shot10 () {
 }
 
 shotwin () {
-	# Get the geometry and use gsub() in awk to format the size correctly (WxH)
-	local window_geo=$(hyprctl activewindow | awk '/at:/ { pos=$2 } /size:/ { size=$2 } END { gsub(",", "x", size); print pos " " size }')
-
-	# Check if geometry was successfully captured
-	if [[ -z "$window_geo" ]]; then
-		notify-send -c "$notification_category" -u critical "Screenshot Failed" "No active window selected."
-		exit 1
-	fi
-
-	# Capture the specific window geometry with grim
-	sleep 0.5 && cd "${dir}" && grim -g "$window_geo" - | tee "$file" | wl-copy
+	cd ${dir} && maim -u -f png -i `xdotool getactivewindow` | copy_shot
 	notify_view
 }
 
