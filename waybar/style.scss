@@ -115,7 +115,7 @@ window#waybar {
   margin: 5px 5px 5px 0px;
 }
 
-$workspaces-color: $Blue, $Red, $Green, $Mauve, $Rosewater, $Peach;
+$workspaces-color: $Blue, $Red, $Green, $Mauve, $Rosewater, $Peach, $Yellow, $Teal;
 
 @each $color in $workspaces-color {
   $index: list.index($workspaces-color, $color);

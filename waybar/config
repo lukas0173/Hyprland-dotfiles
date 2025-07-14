@@ -1,159 +1,166 @@
-{
-  "include": "~/.config/waybar/configs/custom_modules/modules",
-  "layer": "top",
-  "height": 35,
-  "margin-top": 10,
-  "margin-left": 10,
-  "margin-bottom": 0,
-  "margin-right": 10,
-  "spacing": 0,
-
-  "modules-left": [
-    "custom/icon",
-    "custom/separator",
-    "cpu",
-    "memory",
-    "temperature",
-    "custom/separator",
-    "custom/window-name",
-    "custom/pacman-update-icon",
-    "custom/pacman-update",
-    "tray"
-  ],
-
-  "modules-center": ["hyprland/workspaces"],
-  "modules-right": [
-    "battery",
-    "backlight",
-    "pulseaudio",
-    "custom/right-arr",
-    "network",
-    "custom/clock-icon",
-    "clock"
-  ],
-
-  "hyprland/workspaces": {
-    "all-outputs": true,
-    "format": "{icon}",
-    "format-icons": {
-      "1": "",
-      "2": "",
-      "3": "",
-      "4": "",
-      "5": "",
-      "6": "",
-      "urgent": "",
-      "active": "",
-      "default": ""
+  {
+    "output": "eDP-1",
+    "include": "~/.config/waybar/configs/custom_modules/modules",
+    "layer": "top",
+    "height": 35,
+    "margin-top": 10,
+    "margin-left": 10,
+    "margin-bottom": 0,
+    "margin-right": 10,
+    "spacing": 0,
+    "modules-left": [
+      "custom/icon",
+      "custom/separator",
+      "cpu",
+      "memory",
+      "temperature",
+      "custom/separator",
+      "custom/window-name",
+      "custom/pacman-update-icon",
+      "custom/pacman-update",
+      "tray"
+    ],
+    "modules-center": [
+      "hyprland/workspaces"
+    ],
+    "modules-right": [
+      "battery",
+      "backlight",
+      "pulseaudio",
+      "custom/right-arr",
+      "network",
+      "custom/clock-icon",
+      "clock"
+    ],
+    "hyprland/workspaces": {
+      "all-outputs": true,
+      "format": "{icon}",
+      "format-icons": {
+        "1": "",
+        "2": "",
+        "3": "",
+        "4": "",
+        "5": "",
+        "6": "",
+        "7": "",
+        "8": "",
+        "urgent": "",
+        "active": "",
+        "default": ""
+      }
+    },
+    "tray": {
+      "icon-size": 20,
+      "spacing": 8
+    },
+    "custom/clock-icon": {
+      "format": ""
+    },
+    "clock": {
+      "format": "<b>{:%I:%M %p}</b>",
+      "format-alt": "<b>{:%a.%d,%b}</b>",
+      "tooltip-format": "<big>{:%B %Y}</big>\n<tt><small>{calendar}</small></tt>"
+    },
+    "cpu": {
+      "interval": 10,
+      "format": " {usage}%",
+      "max-length": 10,
+      "tooltip": false
+    },
+    "memory": {
+      "interval": 30,
+      "format": "󰪢 {used}GiB",
+      "max-length": 15
+    },
+    "backlight": {
+      "device": "amdgpu_bl1",
+      "format": "{icon} {percent}",
+      "tooltip": false,
+      "format-icons": [
+        "󰃞",
+        "󰃟",
+        "󰃠"
+      ]
+    },
+    "network": {
+      "interface": "wlp5s0",
+      "format-wifi": "  {essid}",
+      "on-click": "nm-applet",
+      "format-ethernet": "󰈀 wired",
+      "format-disconnected": " disconnected",
+      "tooltip-format": "{ifname} via {gwaddr}",
+      "tooltip-format-wifi": "Signal strenght: {signalStrength}%",
+      "tooltip-format-ethernet": "{ifname} ",
+      "tooltip-format-disconnected": "Disconnected"
+    },
+    "pulseaudio": {
+      "format": "{icon}  <b>{volume}</b>",
+      "format-bluetooth": "󰗾",
+      "format-bluetooth-muted": "󰗿",
+      "tooltip": false,
+      "format-muted": "󰝟",
+      "format-icons": {
+        "default": [
+          "",
+          "",
+          ""
+        ]
+      },
+      "on-click": "pwvucontrol"
+    },
+    "battery": {
+      "bat": "BAT1",
+      "interval": 30,
+      "states": {
+        "warning": 30,
+        "critical": 15
+      },
+      "format": "{icon} {capacity}%",
+      "format-charging": "󱐋 {icon} {capacity}%",
+      "format-icons": [
+        " ",
+        " ",
+        " ",
+        " ",
+        " "
+      ],
+      "max-length": 25,
+      "tooltip": false
+    },
+    "custom/right-arr": {
+      "format": "  "
+    },
+    "custom/icon": {
+      "format": "󰣇"
+    },
+    "custom/separator": {
+      "format": " "
+    },
+    "custom/window-name": {
+      "format": "<b>{}</b>",
+      "interval": 1,
+      "exec": "hyprctl activewindow | grep class | awk '{print $2}'"
+    },
+    "custom/pacman-update-icon": {
+      "format": ""
+    },
+    "custom/pacman-update": {
+      "format": " {}",
+      "interval": 3600,
+      "exec": "checkupdates | wc -l",
+      "signal": 8
+    },
+    "custom/window-icon": {},
+    "temperature": {
+      "thermal-zone": 0,
+      "critical-threshold": 80,
+      "format-critical": " {temperatureC}°C",
+      "format": " {temperatureC}°C"
+    },
+    "custom/wrap-left": {
+      "format": "<b>[</b>"
+    },
+    "custom/wrap-right": {
+      "format": "<b>]</b>"
     }
-  },
-
-  "tray": {
-    "icon-size": 20,
-    "spacing": 8
-  },
-
-  "custom/clock-icon": {
-    "format": ""
-  },
-
-  "clock": {
-    "format": "<b>{:%I:%M %p}</b>",
-    "format-alt": "<b>{:%a.%d,%b}</b>",
-    "tooltip-format": "<big>{:%B %Y}</big>\n<tt><small>{calendar}</small></tt>"
-  },
-
-  "cpu": {
-    "interval": 10,
-    "format": " {usage}%",
-    "max-length": 10,
-    "tooltip": false
-  },
-  "memory": {
-    "interval": 30,
-    "format": "󰪢 {used}GiB",
-    "max-length": 15
-  },
-  "backlight": {
-    "device": "amdgpu_bl1",
-    "format": "{icon} {percent}",
-    "tooltip": false,
-    "format-icons": ["󰃞", "󰃟", "󰃠"]
-  },
-  "network": {
-    "interface": "wlp5s0",
-    "format-wifi": "  {essid}",
-    "on-click": "nm-applet",
-    "format-ethernet": "󰈀 wired",
-    "format-disconnected": " disconnected",
-    "tooltip-format": "{ifname} via {gwaddr}",
-    "tooltip-format-wifi": "Signal strenght: {signalStrength}%",
-    "tooltip-format-ethernet": "{ifname} ",
-    "tooltip-format-disconnected": "Disconnected"
-  },
-
-  "pulseaudio": {
-    "format": "{icon}  <b>{volume}</b>",
-    "format-bluetooth": "󰗾",
-    "format-bluetooth-muted": "󰗿",
-    "tooltip": false,
-    "format-muted": "󰝟",
-    "format-icons": {
-      "default": ["", "", ""]
-    },
-    "on-click": "pwvucontrol"
-  },
-  "battery": {
-    "bat": "BAT1",
-    "interval": 30,
-    "states": {
-      "warning": 30,
-      "critical": 15
-    },
-    "format": "{icon} {capacity}%",
-    "format-charging": "󱐋 {icon} {capacity}%",
-    "format-icons": [" ", " ", " ", " ", " "],
-    "max-length": 25,
-    "tooltip": false
-  },
-  "custom/right-arr": {
-    "format": "  "
-  },
-  "custom/icon": {
-    "format": "󰣇"
-  },
-  "custom/separator": {
-    "format": " "
-  },
-  "custom/window-name": {
-    "format": "<b>{}</b>",
-    "interval": 1,
-    "exec": "hyprctl activewindow | grep class | awk '{print $2}'"
-  },
-
-  "custom/pacman-update-icon": {
-    "format": ""
-  },
-  "custom/pacman-update": {
-    "format": " {}",
-    "interval": 3600,
-    "exec": "checkupdates | wc -l",
-    "signal": 8
-  },
-  "custom/window-icon": {},
-
-  "temperature": {
-    "thermal-zone": 0,
-    "critical-threshold": 80,
-    "format-critical": " {temperatureC}°C",
-    "format": " {temperatureC}°C"
-  },
-
-  "custom/wrap-left": {
-    "format": "<b>[</b>"
-  },
-
-  "custom/wrap-right": {
-    "format": "<b>]</b>"
   }
-}

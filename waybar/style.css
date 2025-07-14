@@ -114,6 +114,16 @@ window#waybar {
   margin: 0px 8px;
 }
 
+#workspaces button:nth-child(7) label {
+  color: #eed49f;
+  margin: 0px 8px;
+}
+
+#workspaces button:nth-child(8) label {
+  color: #8bd5ca;
+  margin: 0px 8px;
+}
+
 #battery {
   color: #a6da95;
   margin: 0px 10px 0px 0px;
