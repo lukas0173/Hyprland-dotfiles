@@ -93,11 +93,11 @@
   },
 
   "pulseaudio": {
-    "format": "{icon} <b>{volume}</b>",
-    "format-bluetooth": " ",
-    "format-bluetooth-muted": " ",
+    "format": "{icon}  <b>{volume}</b>",
+    "format-bluetooth": "󰗾",
+    "format-bluetooth-muted": "󰗿",
     "tooltip": false,
-    "format-muted": "",
+    "format-muted": "󰝟",
     "format-icons": {
       "default": ["", "", ""]
     },
