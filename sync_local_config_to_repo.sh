@@ -10,3 +10,4 @@ rsync -a --delete-after "$HOME"/.config/tmux/ ./tmux
 rsync -a --delete-after "$HOME"/.zshrc ./.zshrc
 rsync -a --delete-after "$HOME"/.config/bat/ ./bat
 rsync -a --delete-after "$HOME"/.config/mako/ ./mako
+rsync -a --delete-after "$HOME"/.config/rofi/ ./rofi
