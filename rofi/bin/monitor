@@ -37,6 +37,9 @@ run_cmd() {
     # Sets the internal monitor and tells hyprland to place
     # the 'next' (unnamed) monitor to its left.
     hyprctl --batch "keyword monitor $INTERNAL_MONITOR,1920x1080@144,0x0,1; keyword monitor $EXTERNAL_MONITOR,1920x1080@120,-1920x0,1"
+    for ws in {1..5}; do
+      hyprctl dispatch moveworkspacetomonitor "$ws" "$INTERNAL_MONITOR"
+    done
     for ws in {6..8}; do
       hyprctl dispatch moveworkspacetomonitor "$ws" "$EXTERNAL_MONITOR"
     done
