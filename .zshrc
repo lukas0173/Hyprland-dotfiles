@@ -51,3 +51,24 @@ eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
 
 export QSYS_ROOTDIR="/home/kiet/.cache/paru/clone/quartus-free/pkg/quartus-free-quartus/opt/intelFPGA/23.1/quartus/sopc_builder/bin"
+autoload bashcompinit
+bashcompinit
+source "/home/kiet/.local/share/bash-completion/completions/am"
+
+# yazi change directory on exit
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	yazi "$@" --cwd-file="$tmp"
+	IFS= read -r -d '' cwd < "$tmp"
+	[ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
+	rm -f -- "$tmp"
+}
+
+
+. "$HOME/.local/bin/env"
+
+# Pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init - bash)"
+
