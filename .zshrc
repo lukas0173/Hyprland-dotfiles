@@ -36,6 +36,7 @@ source /usr/share/zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 ## ALIASES
+alias matlab="LD_LIBRARY_PATH=/home/kiet/MATLAB/gnutls-3.8.9-1-x86_64.pkg/usr/lib/ matlab"
 alias ls="exa"
 alias grep="grep --color=always"
 # alias emulator="QT_QPA_PLATFORM=xcb emulator"
@@ -72,3 +73,4 @@ export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init - bash)"
 
+export LIBVIRT_DEFAULT_URI="qemu:///system"
