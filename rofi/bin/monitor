@@ -9,7 +9,8 @@ EXTERNAL_MONITOR=$(hyprctl monitors all | grep "Monitor" | grep -v "$INTERNAL_MO
 theme="$HOME/.config/rofi/themes/monitor.rasi"
 
 # Rofi Options
-extend='' # Extend (mimicking the -1920x0 behavior)
+extend_left=''  # Extend left (mimicking the -1920x0 behavior)
+extend_right='' # Extend right (mimicking the -1920x0 behavior)
 mirror=''
 internal_only=''
 yes=''
@@ -28,12 +29,12 @@ rofi_cmd() {
 
 # Pass variables to rofi dmenu
 run_rofi() {
-  echo -e "$extend\n$mirror\n$internal_only" | rofi_cmd
+  echo -e "$extend_left\n$extend_right\n$mirror\n$internal_only" | rofi_cmd
 }
 
 # Execute Command
 run_cmd() {
-  if [[ "$1" == '--extend' ]]; then
+  if [[ "$1" == '--extend_left' ]]; then
     # Sets the internal monitor and tells hyprland to place
     # the 'next' (unnamed) monitor to its left.
     hyprctl --batch "keyword monitor $INTERNAL_MONITOR,1920x1080@144,0x0,1; keyword monitor $EXTERNAL_MONITOR,1920x1080@120,-1920x0,1"
@@ -53,6 +54,25 @@ run_cmd() {
     fi
     hyprctl keyword monitor "$EXTERNAL_MONITOR,1920x1080@144,auto,1,mirror,$INTERNAL_MONITOR"
 
+  elif [[ "$1" == '--extend_right' ]]; then
+    # Sets the internal monitor and tells hyprland to place
+    # the 'next' (unnamed) monitor to its left.
+    hyprctl --batch "keyword monitor $INTERNAL_MONITOR,1920x1080@144,0x0,1; keyword monitor $EXTERNAL_MONITOR,1920x1080@120,1920x0,1"
+    for ws in {1..5}; do
+      hyprctl dispatch moveworkspacetomonitor "$ws" "$INTERNAL_MONITOR"
+    done
+    for ws in {6..8}; do
+      hyprctl dispatch moveworkspacetomonitor "$ws" "$EXTERNAL_MONITOR"
+    done
+    hyprctl dispatch workspace 6
+
+  elif [[ "$1" == '--mirror' ]]; then
+    # Even for mirroring, we need to know the external monitor's name.
+    if [[ -z "$EXTERNAL_MONITOR" ]]; then
+      notify-send "Monitor Error" "No external monitor detected."
+      exit 1
+    fi
+    hyprctl keyword monitor "$EXTERNAL_MONITOR,1920x1080@144,auto,1,mirror,$INTERNAL_MONITOR"
   elif [[ "$1" == '--internal-only' ]]; then
     if [[ -z "$EXTERNAL_MONITOR" ]]; then
       notify-send "Monitor Error" "No external monitor detected."
@@ -65,8 +85,11 @@ run_cmd() {
 # Actions
 chosen="$(run_rofi)"
 case ${chosen} in
-"$extend")
-  run_cmd --extend
+"$extend_left")
+  run_cmd --extend_left
+  ;;
+"$extend_right")
+  run_cmd --extend_right
   ;;
 "$mirror")
   run_cmd --mirror
