@@ -1,0 +1,4 @@
+[tool.pymarkdown]
+plugins.no-inline-html.enabled = false
+plugins.line-length.enabled = false
+#plugins.md033.allowed_elements = "nbsp,prefix"

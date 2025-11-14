@@ -1,0 +1,18 @@
+# temp files
+*~
+\#*
+
+.DS_Store
+__pycache__
+
+# olint linter cache
+.cache.olint
+
+# tmux-menus cache
+cache/
+
+# Custom loocal menus not managed by git
+custom_items/
+
+# hint file, to not print a reminder that tmux < 1.8 can't read user options
+.skip_old_tmux_warning
