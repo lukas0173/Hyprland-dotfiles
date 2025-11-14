@@ -1,0 +1,23 @@
+name: CI
+on:
+  pull_request:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+jobs:
+  test:
+    name: Unit tests on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-latest
+          - macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check bash shell version
+        run: bash --version
+      - name: Unit tests (file pattern-check)
+        run: TERM='xterm-256color' bash pattern-check

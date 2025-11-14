@@ -1,0 +1,35 @@
+---
+name: Tests
+permissions:
+  contents: read
+on:
+  pull_request:
+    paths-ignore:
+      - "*.md"
+      - "assets/**"
+  push:
+    paths-ignore:
+      - "*.md"
+      - "assets/**"
+    branches:
+      - main
+  workflow_dispatch:
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  ubuntu:
+    name: Test
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Install tmux
+        run: sudo apt update && sudo apt install -y --allow-downgrades tmux=3.4-1build1
+      - uses: actions/checkout@v4
+      - name: Run Tests
+        shell: bash
+        run: |
+          bash --version
+          tmux -V
+          ./run_tests.sh
