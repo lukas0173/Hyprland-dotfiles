@@ -4,6 +4,7 @@ INTERNAL_MONITOR="eDP-1"
 
 # Identifies any monitor that is NOT the internal one.
 EXTERNAL_MONITOR=$(hyprctl monitors all | grep "Monitor" | grep -v "$INTERNAL_MONITOR" | awk '{print $2}')
+EXTERNAL_MONITOR_CONFIG="2560x1600@129.99"
 
 # Current Theme
 theme="$HOME/.config/rofi/themes/monitor.rasi"
@@ -37,7 +38,7 @@ run_cmd() {
   if [[ "$1" == '--extend_left' ]]; then
     # Sets the internal monitor and tells hyprland to place
     # the 'next' (unnamed) monitor to its left.
-    hyprctl --batch "keyword monitor $INTERNAL_MONITOR,1920x1080@144,0x0,1; keyword monitor $EXTERNAL_MONITOR,1920x1080@120,-1920x0,1"
+    hyprctl --batch "keyword monitor $INTERNAL_MONITOR,1920x1080@144,0x0,1; keyword monitor $EXTERNAL_MONITOR,$EXTERNAL_MONITOR_CONFIG,-1920x0,1.33"
     for ws in {1..5}; do
       hyprctl dispatch moveworkspacetomonitor "$ws" "$INTERNAL_MONITOR"
     done
@@ -52,12 +53,12 @@ run_cmd() {
       notify-send "Monitor Error" "No external monitor detected."
       exit 1
     fi
-    hyprctl keyword monitor "$EXTERNAL_MONITOR,1920x1080@144,auto,1,mirror,$INTERNAL_MONITOR"
+    hyprctl keyword monitor "$EXTERNAL_MONITOR,$EXTERNAL_MONITOR_CONFIG,auto,1,mirror,$INTERNAL_MONITOR"
 
   elif [[ "$1" == '--extend_right' ]]; then
     # Sets the internal monitor and tells hyprland to place
     # the 'next' (unnamed) monitor to its left.
-    hyprctl --batch "keyword monitor $INTERNAL_MONITOR,1920x1080@144,0x0,1; keyword monitor $EXTERNAL_MONITOR,1920x1080@120,1920x0,1"
+    hyprctl --batch "keyword monitor $INTERNAL_MONITOR,1920x1080@144,0x0,1; keyword monitor $EXTERNAL_MONITOR,$EXTERNAL_MONITOR_CONFIG,1920x0,1.33"
     for ws in {1..5}; do
       hyprctl dispatch moveworkspacetomonitor "$ws" "$INTERNAL_MONITOR"
     done
@@ -72,7 +73,7 @@ run_cmd() {
       notify-send "Monitor Error" "No external monitor detected."
       exit 1
     fi
-    hyprctl keyword monitor "$EXTERNAL_MONITOR,1920x1080@144,auto,1,mirror,$INTERNAL_MONITOR"
+    hyprctl keyword monitor "$EXTERNAL_MONITOR,$EXTERNAL_MONITOR_CONFIG,auto,1,mirror,$INTERNAL_MONITOR"
   elif [[ "$1" == '--internal-only' ]]; then
     if [[ -z "$EXTERNAL_MONITOR" ]]; then
       notify-send "Monitor Error" "No external monitor detected."

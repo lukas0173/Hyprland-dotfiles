@@ -75,3 +75,11 @@ export PYENV_ROOT="$HOME/.pyenv"
 eval "$(pyenv init - bash)"
 
 # export LIBVIRT_DEFAULT_URI="qemu:///system"
+
+# pnpm
+export PNPM_HOME="/home/kiet/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
